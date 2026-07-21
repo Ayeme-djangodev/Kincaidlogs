@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-3xl mx-auto py-16 md:py-24 px-6 text-center">
+
+    <div class="stamp stamp-lg mx-auto mb-8">
+        <span>CONFIRMED</span>
+        <span>✓ KL</span>
+    </div>
+
+    <h1 class="text-3xl md:text-5xl font-display font-bold text-ink mb-4">
+        Order Received
+    </h1>
+
+    <p class="text-base md:text-lg text-slate">
+        Thank you for your purchase — your order has been logged
+        and is being processed.
+    </p>
+
+    <a href="/"
+       class="inline-flex items-center gap-2 mt-8 bg-ledger hover:bg-ledger-dark text-white px-6 py-3 rounded-xl font-display font-medium transition-colors">
+        Continue Shopping
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+    </a>
+
+</div>
+
+{% endblock %}

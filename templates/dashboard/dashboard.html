@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto py-10 md:py-16 px-6">
+
+    <div class="flex items-center justify-between mb-2">
+        <h1 class="text-2xl md:text-4xl font-display font-bold text-ink">
+            Welcome, {{ request.user.username }}
+        </h1>
+        <div class="stamp hidden md:flex">
+            <span>MEMBER</span>
+            <span>✓ KL</span>
+        </div>
+    </div>
+
+    <p class="text-slate font-mono text-xs md:text-sm tracking-wide mt-2">
+        ROLE: {{ request.user.role|upper }}
+    </p>
+
+    <div class="grid sm:grid-cols-2 gap-4 md:gap-6 mt-8 md:mt-10">
+
+        {% if wallet %}
+            <div class="bg-white rounded-2xl border border-paper-dim shadow-sm p-6">
+                <p class="text-slate text-xs font-mono tracking-wide">WALLET BALANCE</p>
+                <p class="text-3xl font-mono font-semibold text-ink mt-2">
+                    ₦{{ wallet.balance|floatformat:2 }}
+                </p>
+                <a href="{% url 'fund_wallet' %}"
+                   class="inline-block mt-4 text-ledger hover:text-ledger-dark font-display font-medium text-sm">
+                    Fund wallet →
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="bg-white rounded-2xl border border-paper-dim shadow-sm p-6">
+            <p class="text-slate text-xs font-mono tracking-wide">ORDER HISTORY</p>
+            <p class="text-3xl font-mono font-semibold text-ink mt-2">
+                {{ order_count|default:"—" }}
+            </p>
+            <a href="{% url 'my_orders' %}"
+               class="inline-block mt-4 text-ledger hover:text-ledger-dark font-display font-medium text-sm">
+                My Orders →
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

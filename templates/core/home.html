@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}Buy Verified Digital Accounts · KincaidLogs{% endblock %}
+
+{% block content %}
+
+
+<!-- Hero -->
+<section class="max-w-7xl mx-auto px-6 py-12 md:py-24">
+
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+        <!-- LEFT -->
+        <div>
+
+            <span class="inline-flex items-center gap-2 bg-verified-dim text-verified px-4 py-2 rounded-full text-xs md:text-sm font-mono tracking-wide">
+                <span class="w-1.5 h-1.5 rounded-full bg-verified"></span>
+                VERIFIED MARKETPLACE
+            </span>
+
+            <h1 class="mt-6 md:mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight text-ink">
+                Buy
+                <span class="text-ledger">Digital Accounts</span>
+                Safely.
+            </h1>
+
+            <p class="mt-5 md:mt-8 text-base md:text-xl text-slate leading-7 md:leading-9">
+                Purchase verified social media accounts, websites,
+                domains and digital assets with full escrow protection.
+            </p>
+
+            <div class="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4">
+
+                <a href="#products"
+                   class="bg-ledger hover:bg-ledger-dark text-white px-8 py-4 rounded-xl text-center font-display font-medium">
+                    Browse Accounts
+                </a>
+
+                <a href="#"
+                   class="border border-ink/15 px-8 py-4 rounded-xl hover:bg-white text-center font-display font-medium text-ink">
+                    Sell Accounts
+                </a>
+
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-10 md:mt-16 grid grid-cols-3 gap-4 md:gap-12">
+
+                <div>
+                    <h2 class="text-2xl md:text-4xl font-mono font-semibold text-ink">20K+</h2>
+                    <p class="text-slate text-sm md:text-base">Listings</p>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl md:text-4xl font-mono font-semibold text-ink">8K+</h2>
+                    <p class="text-slate text-sm md:text-base">Sellers</p>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl md:text-4xl font-mono font-semibold text-ink">99%</h2>
+                    <p class="text-slate text-sm md:text-base">Success Rate</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT: manifest card signature element -->
+        <div class="hidden md:block">
+            <div class="bg-white rounded-3xl border border-paper-dim shadow-xl p-8 relative">
+
+                <div class="flex items-start justify-between mb-8">
+                    <div>
+                        <p class="font-mono text-xs text-slate tracking-widest">MANIFEST</p>
+                        <p class="font-mono text-sm text-ink mt-1">LOG-2026-0417</p>
+                    </div>
+                    <div class="stamp">
+                        <span>VERIFIED</span>
+                        <span>✓ KL</span>
+                    </div>
+                </div>
+
+                <div class="font-mono text-sm text-ink space-y-4">
+
+                    <div class="flex justify-between ledger-divider pb-4">
+                        <span class="text-slate">PLATFORM</span>
+                        <span>Instagram</span>
+                    </div>
+
+                    <div class="flex justify-between ledger-divider pb-4">
+                        <span class="text-slate">FOLLOWERS</span>
+                        <span>184,200</span>
+                    </div>
+
+                    <div class="flex justify-between ledger-divider pb-4">
+                        <span class="text-slate">ACCOUNT AGE</span>
+                        <span>4 yrs</span>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <span class="text-slate">PRICE</span>
+                        <span class="text-ledger text-xl font-semibold">₦420,000</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Search + Filters -->
+<section id="products" class="max-w-7xl mx-auto px-6 py-8 md:py-12">
+
+    <div class="bg-white rounded-2xl shadow-lg p-5 md:p-6">
+
+        <h2 class="text-xl md:text-2xl font-display font-bold mb-5 md:mb-6 text-ink">
+            Find Your Next Digital Asset
+        </h2>
+
+        <form method="GET" class="grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-4">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search accounts, domains, websites..."
+                value="{{ request.GET.search }}"
+                class="border border-paper-dim rounded-xl p-3 md:col-span-2 focus:outline-none focus:border-ledger focus:ring-4 focus:ring-ledger/15">
+
+            <select name="platform" class="border border-paper-dim rounded-xl p-3">
+                <option value="" {% if not request.GET.platform %}selected{% endif %}>Platform</option>
+                <option value="Instagram" {% if request.GET.platform == "Instagram" %}selected{% endif %}>Instagram</option>
+                <option value="TikTok" {% if request.GET.platform == "TikTok" %}selected{% endif %}>TikTok</option>
+                <option value="YouTube" {% if request.GET.platform == "YouTube" %}selected{% endif %}>YouTube</option>
+                <option value="Facebook" {% if request.GET.platform == "Facebook" %}selected{% endif %}>Facebook</option>
+            </select>
+
+            <input
+                type="number"
+                name="max_price"
+                placeholder="Max Price"
+                value="{{ request.GET.max_price }}"
+                class="border border-paper-dim rounded-xl p-3">
+
+            <button
+                type="submit"
+                class="bg-ledger hover:bg-ledger-dark text-white rounded-xl py-3 font-medium">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Category pills: horizontal scroll on mobile -->
+    <div class="flex gap-3 mt-6 overflow-x-auto pb-2 -mx-6 px-6 md:mx-0 md:px-0 md:flex-wrap md:overflow-visible scrollbar-hide">
+
+        <a href="/"
+           class="shrink-0 px-4 py-2 bg-ledger text-white rounded-xl text-sm md:text-base">
+            All
+        </a>
+
+        {% for category in categories %}
+            <a href="?category={{ category.slug }}"
+               class="shrink-0 px-4 py-2 bg-white border border-paper-dim rounded-xl hover:bg-paper text-sm md:text-base">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<!-- Product Grid -->
+<section class="max-w-7xl mx-auto px-6 py-8 md:py-12">
+
+    <div class="flex justify-between items-center mb-6 md:mb-10">
+        <h2 class="text-2xl md:text-4xl font-display font-bold text-ink">
+            Featured Accounts
+        </h2>
+        <a href="{% url 'browse_products' %}" class="text-ledger text-sm md:text-base whitespace-nowrap">
+            View All →
+        </a>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+
+        {% for product in products %}
+            {% include "components/product_card.html" %}
+        {% empty %}
+            <p class="col-span-full text-center text-slate py-12">
+                No products yet.
+            </p>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

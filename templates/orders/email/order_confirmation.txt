@@ -1,0 +1,24 @@
+KINCAIDLOGS — ORDER CONFIRMATION
+=================================
+
+Order: LOG-{{ order.id|stringformat:"04d" }}
+Date:  {{ order.created_at|date:"M d, Y H:i" }}
+
+Hi {{ order.full_name }},
+
+Thanks for your purchase — this order has been paid and logged.
+
+ITEMS
+-----
+{% for item in order.items.all %}{{ item.product.title }} ({{ item.product.platform }}) — ₦{{ item.unit_price }}
+{% endfor %}
+---------------------------------
+TOTAL: ₦{{ order.total }}
+
+Your account login details are available on your order page:
+https://kincaidlogs.com/orders/{{ order.id }}/
+
+If you have any questions, reply to this email or reach us at
+support@kincaidlogs.com.
+
+— KincaidLogs

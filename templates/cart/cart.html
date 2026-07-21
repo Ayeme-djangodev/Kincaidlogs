@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto py-10 md:py-16 px-6">
+
+    <div class="flex items-center justify-between mb-8 md:mb-10">
+        <h1 class="text-2xl md:text-4xl font-display font-bold text-ink">
+            Shopping Cart
+        </h1>
+        {% if items %}
+            <span class="font-mono text-xs md:text-sm text-slate bg-paper-dim px-3 py-1.5 rounded-full">
+                {{ items|length }} ITEM{{ items|length|pluralize }}
+            </span>
+        {% endif %}
+    </div>
+
+    {% if items %}
+
+        <div class="space-y-4">
+
+            {% for item in items %}
+
+            <div class="bg-white rounded-2xl border border-paper-dim shadow-sm p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+                <div>
+                    <p class="font-mono text-xs text-slate bg-paper-dim inline-block px-2 py-0.5 rounded-md mb-2">
+                        LOG-{{ item.product.id|stringformat:"04d" }}
+                    </p>
+                    <h3 class="font-display font-bold text-lg text-ink">
+                        {{ item.product.title }}
+                    </h3>
+                    <p class="text-slate text-sm mt-1">
+                        Quantity: {{ item.quantity }}
+                    </p>
+                </div>
+
+                <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-2 pt-4 sm:pt-0 ledger-divider sm:border-t-0">
+                    <p class="font-mono font-semibold text-lg text-ink">
+                        ₦{{ item.subtotal }}
+                    </p>
+                    <a href="{% url 'remove_from_cart' item.product.id %}"
+                       class="text-sm text-red-500 hover:text-red-600 font-medium">
+                        Remove
+                    </a>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="mt-8 md:mt-10 bg-white rounded-2xl border border-paper-dim shadow-sm p-6">
+
+            <div class="flex items-center justify-between pb-5 ledger-divider">
+                <span class="font-mono text-sm text-slate tracking-wide">SUBTOTAL</span>
+                <span class="font-mono text-2xl font-semibold text-ink">₦{{ total }}</span>
+            </div>
+
+            <a href="{% url 'checkout' %}"
+               class="mt-5 w-full flex items-center justify-center gap-2 bg-verified hover:bg-verified/90 text-white px-6 py-4 rounded-xl font-display font-medium">
+                Proceed to Checkout
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <div class="bg-white rounded-2xl border border-dashed border-paper-dim p-12 text-center">
+            <div class="w-14 h-14 rounded-full bg-paper-dim flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </div>
+            <p class="text-slate font-medium">
+                Your cart is empty.
+            </p>
+            <a href="/" class="inline-block mt-4 text-ledger hover:text-ledger-dark font-display font-medium text-sm">
+                Browse accounts →
+            </a>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

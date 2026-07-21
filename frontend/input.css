@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0F172A;
+  --color-ink-light: #1E293B;
+  --color-paper: #F7F7F3;
+  --color-paper-dim: #EFEEE7;
+  --color-ledger: #2E5AAC;
+  --color-ledger-dark: #24478A;
+  --color-verified: #0F9D6F;
+  --color-verified-dim: #E4F5EE;
+  --color-amber: #C98A1B;
+  --color-amber-dim: #FBF0DC;
+  --color-slate: #475569;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+/* ==========================
+STAMP (signature element)
+========================== */
+
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 2px solid var(--color-verified);
+  color: var(--color-verified);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+  position: relative;
+}
+
+.stamp::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px dashed var(--color-verified);
+  border-radius: 50%;
+}
+
+.stamp-lg {
+  width: 132px;
+  height: 132px;
+  font-size: 13px;
+  border-width: 3px;
+}
+
+.stamp-lg::before {
+  inset: 10px;
+}
+
+/* ==========================
+LEDGER DIVIDER (ticket perforation)
+========================== */
+
+.ledger-divider {
+  border-top: 2px dashed var(--color-paper-dim);
+}
+
+/* ==========================
+AUTH PAGE
+========================== */
+
+.auth-page {
+  margin: 0;
+  background: var(--color-paper);
+  font-family: var(--font-body), sans-serif;
+}
+
+.auth-wrapper {
+  width: 1200px;
+  max-width: 95%;
+  margin: 40px auto;
+  background: var(--color-paper-dim);
+  border-radius: 24px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  min-height: 720px;
+}
+
+.brand-panel {
+  background: var(--color-ink);
+  color: white;
+  padding: 50px;
+  position: relative;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 60px;
+}
+
+.brand-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-ledger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  font-size: 22px;
+  font-family: var(--font-display), sans-serif;
+}
+
+.brand-header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-family: var(--font-display), sans-serif;
+}
+
+.brand-description {
+  font-size: 22px;
+  line-height: 42px;
+  color: #CBD5E1;
+  margin-bottom: 60px;
+}
+
+.brand-list {
+  list-style: none;
+  padding: 0;
+}
+
+.brand-list li {
+  display: flex;
+  gap: 20px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-family: var(--font-mono), monospace;
+  font-size: 14px;
+}
+
+.brand-list span {
+  color: var(--color-ledger);
+  font-weight: 700;
+}
+
+.login-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+.login-card {
+  width: 430px;
+  background: white;
+  border-radius: 30px;
+  padding: 55px;
+  box-shadow: 0 20px 50px rgba(15,23,42,.08);
+}
+
+.login-header h2 {
+  margin: 0;
+  font-size: 42px;
+  color: var(--color-ink);
+  font-family: var(--font-display), sans-serif;
+}
+
+.login-header p {
+  color: var(--color-slate);
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.ticket-divider {
+  border-top: 2px dashed #E5E7EB;
+  margin: 30px -55px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .15em;
+  color: var(--color-slate);
+  font-family: var(--font-mono), monospace;
+}
+
+.form-group input {
+  width: 100%;
+  height: 56px;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 0 18px;
+  font-size: 15px;
+  transition: .25s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-ledger);
+  box-shadow: 0 0 0 4px rgba(46,90,172,.12);
+}
+
+.login-btn {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-ledger);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+  font-family: var(--font-display), sans-serif;
+}
+
+.login-btn:hover {
+  background: var(--color-ledger-dark);
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 28px;
+  color: var(--color-slate);
+}
+
+.register-link a {
+  color: var(--color-ledger);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-error {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #B91C1C;
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.field-error {
+  display: block;
+  margin-top: 8px;
+  color: #DC2626;
+  font-size: 13px;
+}
+
+.form-group input:invalid {
+  box-shadow: none;
+}
+
+@media (max-width: 900px) {
+  .auth-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .brand-panel {
+    display: none;
+  }
+  .login-card {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+

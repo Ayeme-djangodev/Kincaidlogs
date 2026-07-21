@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{% block title %}KincaidLogs{% endblock %}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body class="auth-page">
+
+<div class="auth-wrapper">
+
+    <div class="brand-panel">
+
+        <div class="brand-header">
+
+            <div class="brand-icon">
+                K
+            </div>
+
+            <h1>KincaidLogs</h1>
+
+        </div>
+
+        <p class="brand-description">
+
+            Buy premium social accounts,
+            domains, websites and digital assets
+            with verified ownership and secure transfer.
+
+        </p>
+
+        <ul class="brand-list">
+
+            <li><span>01</span> Instagram Accounts</li>
+
+            <li><span>02</span> TikTok Accounts</li>
+
+            <li><span>03</span> Websites</li>
+
+            <li><span>04</span> Domains</li>
+
+        </ul>
+
+    </div>
+
+    <div class="login-panel">
+
+        <div class="login-card">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

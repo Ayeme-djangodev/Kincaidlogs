@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto px-6 py-10 md:py-16">
+
+    <div class="mb-8 md:mb-10">
+
+        <a href="{% url 'browse_products' %}" class="text-sm text-slate hover:text-ledger font-mono">
+            ← All Categories
+        </a>
+
+        <div class="flex items-center gap-3 mt-3">
+            <h1 class="text-2xl md:text-4xl font-display font-bold text-ink">
+                {{ category.name }}
+            </h1>
+            <span class="font-mono text-xs text-slate bg-paper-dim px-2.5 py-1 rounded-full">
+                {{ products|length }} LISTING{{ products|length|pluralize }}
+            </span>
+        </div>
+
+    </div>
+
+    {% if products %}
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {% for product in products %}
+                {% include "components/product_card.html" %}
+            {% endfor %}
+        </div>
+
+    {% else %}
+
+        <div class="bg-white rounded-2xl border border-dashed border-paper-dim p-16 text-center">
+            <p class="text-slate font-medium">
+                No accounts in this category yet.
+            </p>
+            <a href="{% url 'browse_products' %}" class="inline-block mt-3 text-ledger hover:text-ledger-dark font-display font-medium text-sm">
+                Browse all accounts →
+            </a>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

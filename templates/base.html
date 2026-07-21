@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}KincaidLogs{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body class="bg-paper font-body text-ink">
+
+      {% include "components/navbar.html" %}
+
+      {% if messages %}
+          <div class="max-w-7xl mx-auto px-6 pt-4 space-y-2">
+              {% for message in messages %}
+                  <div class="rounded-xl px-4 py-3 text-sm font-medium
+                      {% if message.tags == 'error' %} bg-red-50 border border-red-100 text-red-600
+                      {% elif message.tags == 'warning' %} bg-amber-dim border border-amber/20 text-amber
+                      {% elif message.tags == 'success' %} bg-verified-dim border border-verified/20 text-verified
+                      {% else %} bg-paper-dim border border-paper-dim text-slate
+                      {% endif %}">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+          </div>
+      {% endif %}
+  
+      {% block content %}
+  
+      {% endblock %}
+  
+
+      {% include "components/footer.html" %}
+</body>
+</html>

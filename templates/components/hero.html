@@ -1,0 +1,38 @@
+<section class="py-20 bg-gray-50">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+        <div class="flex justify-between items-center mb-10">
+
+            <h2 class="text-4xl font-bold">
+
+                Featured Accounts
+
+            </h2>
+
+            <a href="#"
+               class="text-blue-600">
+
+                View All →
+
+            </a>
+
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            {% for product in products %}
+
+                {% include "components/product_card.html" %}
+
+            {% empty %}
+
+                <p>No products yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>

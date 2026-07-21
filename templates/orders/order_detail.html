@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-3xl mx-auto py-10 md:py-16 px-6">
+
+    <a href="{% url 'my_orders' %}" class="text-sm text-slate hover:text-ledger font-mono">
+        ← My Orders
+    </a>
+
+    <div class="flex items-center justify-between mt-4 mb-8">
+        <div class="flex items-center gap-3">
+            <h1 class="text-2xl md:text-3xl font-display font-bold text-ink">
+                Order
+            </h1>
+            <span class="font-mono text-xs text-slate bg-paper-dim px-2.5 py-1 rounded-md">
+                LOG-{{ order.id|stringformat:"04d" }}
+            </span>
+        </div>
+
+        {% if order.status == "paid" %}
+            <span class="bg-verified-dim text-verified px-3 py-1 rounded-full text-xs font-mono tracking-wide">
+                ✓ PAID
+            </span>
+        {% elif order.status == "pending" %}
+            <span class="bg-amber-dim text-amber px-3 py-1 rounded-full text-xs font-mono tracking-wide">
+                PENDING
+            </span>
+        {% else %}
+            <span class="bg-paper-dim text-slate px-3 py-1 rounded-full text-xs font-mono tracking-wide">
+                {{ order.status|upper }}
+            </span>
+        {% endif %}
+    </div>
+
+    <div class="bg-white rounded-2xl border border-paper-dim shadow-sm p-6 mb-8">
+        <div class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+                <p class="text-slate font-mono text-xs tracking-wide">DATE</p>
+                <p class="text-ink mt-1">{{ order.created_at|date:"M d, Y" }}</p>
+            </div>
+            <div>
+                <p class="text-slate font-mono text-xs tracking-wide">TOTAL</p>
+                <p class="text-ink font-mono font-semibold mt-1">₦{{ order.total }}</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="text-lg font-display font-bold text-ink mb-4">
+        Purchased Accounts
+    </h2>
+
+    <div class="space-y-4">
+
+        {% for item in order.items.all %}
+
+        <div class="bg-white rounded-2xl border border-paper-dim shadow-sm overflow-hidden">
+
+            <div class="p-5 flex items-center justify-between ledger-divider">
+                <div>
+                    <p class="font-display font-bold text-ink">
+                        {{ item.product.title }}
+                    </p>
+                    <p class="text-slate text-sm font-mono mt-0.5">
+                        {{ item.product.platform }} · LOG-{{ item.product.id|stringformat:"04d" }}
+                    </p>
+                </div>
+                <p class="font-mono text-ink">
+                    ₦{{ item.unit_price }}
+                </p>
+            </div>
+
+            {% if order.status == "paid" %}
+
+                <div class="credential-block p-5 bg-paper-dim/40">
+
+                    <button
+                        type="button"
+                        class="credential-toggle flex items-center gap-2 text-ledger hover:text-ledger-dark font-display font-medium text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        Reveal Login Credentials
+                    </button>
+
+                    <div class="credential-details hidden mt-4 space-y-3 font-mono text-sm">
+
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 bg-white border border-paper-dim rounded-xl px-4 py-3">
+                            <span class="text-slate text-xs tracking-wide">USERNAME / EMAIL</span>
+                            <span class="text-ink select-all">{{ item.product.login_identifier|default:"—" }}</span>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 bg-white border border-paper-dim rounded-xl px-4 py-3">
+                            <span class="text-slate text-xs tracking-wide">PASSWORD</span>
+                            <span class="text-ink select-all">{{ item.product.login_password|default:"—" }}</span>
+                        </div>
+
+                        {% if item.product.delivery_notes %}
+                            <div class="bg-white border border-paper-dim rounded-xl px-4 py-3">
+                                <p class="text-slate text-xs tracking-wide mb-2">ADDITIONAL NOTES</p>
+                                <p class="text-ink whitespace-pre-line">{{ item.product.delivery_notes }}</p>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="p-5 bg-paper-dim/40 text-sm text-slate">
+                    Credentials will be available once this order is marked as paid.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll('.credential-block').forEach(function (block) {
+        var toggle = block.querySelector('.credential-toggle');
+        var details = block.querySelector('.credential-details');
+        toggle.addEventListener('click', function () {
+            details.classList.toggle('hidden');
+        });
+    });
+</script>
+
+{% endblock %}
