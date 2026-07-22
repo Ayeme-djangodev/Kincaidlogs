@@ -26,8 +26,7 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = 'django-insecure-p1+&-n1uyc4668w7+ma*_jb%f%0r6kuad=3k0($c5x%v5ikf8^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 # ALLOWED_HOSTS is read from an env var so you can change it on Render
 # without touching code. Set ALLOWED_HOSTS in Render's Environment tab, e.g.:
 #   ALLOWED_HOSTS=kincaidlogs.com,www.kincaidlogs.com,your-app.onrender.com
