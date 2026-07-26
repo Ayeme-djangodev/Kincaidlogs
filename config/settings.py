@@ -28,7 +28,32 @@ SECRET_KEY = 'django-insecure-p1+&-n1uyc4668w7+ma*_jb%f%0r6kuad=3k0($c5x%v5ikf8^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+# ALLOWED_HOSTS is read from an env var so you can change it on Render
+# without touching code. Set ALLOWED_HOSTS in Render's Environment tab, e.g.:
+#   ALLOWED_HOSTS=kincaidlogs.com,www.kincaidlogs.com,your-app.onrender.com
+_allowed_hosts_env = os.environ.get("ALLOWED_HOSTS", "")
+ALLOWED_HOSTS = [h.strip() for h in _allowed_hosts_env.split(",") if h.strip()]
+
+# Fallback so local/dev doesn't break if the env var isn't set yet.
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = [
+        "localhost",
+        "127.0.0.1",
+        "kincaidlogs.com",
+        "www.kincaidlogs.com",
+    ]
+
+# Required alongside ALLOWED_HOSTS once you're serving HTTPS on a custom
+# domain — Django needs the full scheme + host for CSRF-protected POSTs
+# (forms, admin login, etc.) to work.
+_csrf_trusted_env = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in _csrf_trusted_env.split(",") if o.strip()]
+
+if not CSRF_TRUSTED_ORIGINS:
+    CSRF_TRUSTED_ORIGINS = [
+        "https://kincaidlogs.com",
+        "https://www.kincaidlogs.com",
+    ]
 
 
 # Application definition
