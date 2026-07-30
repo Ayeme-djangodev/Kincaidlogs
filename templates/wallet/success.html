@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Successful{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto py-20 text-center">
+
+    <div class="bg-white rounded-2xl shadow p-10">
+
+        <div class="text-6xl mb-4">✅</div>
+
+        <h1 class="text-3xl font-bold mb-3">
+            Wallet Funded Successfully
+        </h1>
+
+        <p class="text-gray-600 mb-8">
+            Your payment has been confirmed and your wallet has been credited.
+        </p>
+
+        <a href="{% url 'fund_wallet' %}"
+           class="bg-ledger text-white px-6 py-3 rounded-xl">
+            Back to Wallet
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}

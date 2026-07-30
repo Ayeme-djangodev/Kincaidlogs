@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Failed{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto py-20 text-center">
+
+    <div class="bg-white rounded-2xl shadow p-10">
+
+        <div class="text-6xl mb-4">❌</div>
+
+        <h1 class="text-3xl font-bold mb-3">
+            Payment Failed
+        </h1>
+
+        <p class="text-gray-600 mb-8">
+            Your payment could not be verified.
+        </p>
+
+        <a href="{% url 'fund_wallet' %}"
+           class="bg-ledger text-white px-6 py-3 rounded-xl">
+            Try Again
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}

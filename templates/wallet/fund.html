@@ -47,7 +47,7 @@
                 </div>
             {% endif %}
 
-            <form method="post" action="{% url 'fund_wallet' %}">
+            <form id="walletForm">
                 {% csrf_token %}
 
                 <label for="amount" class="block text-sm font-medium text-slate mb-2">
@@ -101,7 +101,7 @@
                     <rect x="3" y="11" width="18" height="11" rx="2"></rect>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                 </svg>
-                Payments secured by Paystack
+                Payments secured by TransactPay
             </div>
 
         </div>
@@ -109,13 +109,139 @@
     </div>
 
 </div>
-
+<script src="https://payment-web-sdk.transactpay.ai/v1/checkout"></script>
 <script>
-    document.querySelectorAll('.quick-amount').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            document.getElementById('amount').value = btn.dataset.amount;
-        });
+    
+
+const amountInput = document.getElementById("amount");
+
+document.querySelectorAll(".quick-amount").forEach(btn => {
+    btn.addEventListener("click", () => {
+        amountInput.value = btn.dataset.amount;
     });
+});
+
+const form = document.getElementById("walletForm");
+
+form.addEventListener("submit", async function (e) {
+
+    e.preventDefault();
+
+    const submitButton = form.querySelector("button[type='submit']");
+
+    submitButton.disabled = true;
+    submitButton.innerHTML = "Preparing Payment...";
+
+    try {
+
+        const response = await fetch("{% url 'fund_wallet' %}", {
+
+            method: "POST",
+
+            headers: {
+                "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+                "X-Requested-With": "XMLHttpRequest",
+            },
+
+            body: new FormData(form)
+
+        });
+
+        const data = await response.json();
+
+        if (data.status !== "success") {
+
+            alert(data.message || "Unable to start payment.");
+
+            submitButton.disabled = false;
+            submitButton.innerHTML = "Continue to Payment";
+
+            return;
+        }
+
+        const Checkout = new window.CheckoutNS.PaymentCheckout({
+
+            firstName: data.customer.firstName,
+
+            lastName: data.customer.lastName,
+
+            mobile: data.customer.mobile,
+
+            country: data.customer.country,
+
+            email: data.customer.email,
+
+            currency: data.currency,
+
+            amount: data.amount,
+
+            reference: data.reference,
+
+            merchantReference: data.merchantReference,
+
+            description: data.description,
+
+            apiKey: "{{ transactpay_public_key }}",
+
+            encryptionKey: "{{ transactpay_encryption_key }}",
+
+            onCompleted: function (result) {
+
+                if (
+                    result.status &&
+                    result.status.toLowerCase() === "successful"
+                ) {
+
+                    window.location =
+                        "{% url 'verify_payment' %}?reference=" +
+                        data.reference;
+
+                } else {
+
+                    alert("Payment was not successful.");
+
+                }
+
+            },
+
+            onClose: function () {
+
+                submitButton.disabled = false;
+
+                submitButton.innerHTML = "Continue to Payment";
+
+            },
+
+            onError: function (error) {
+
+                console.error(error);
+
+                alert("Payment failed.");
+
+                submitButton.disabled = false;
+
+                submitButton.innerHTML = "Continue to Payment";
+
+            }
+
+        });
+
+        Checkout.init();
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Unable to connect to payment gateway.");
+
+        submitButton.disabled = false;
+
+        submitButton.innerHTML = "Continue to Payment";
+
+    }
+
+});
+
 </script>
 
 {% endblock %}
