@@ -80,7 +80,7 @@ def fund_wallet(request):
             "status": "success",
             "reference": reference,
             "merchantReference": reference,
-            "amount": int(amount * 100),      # smallest unit (kobo)
+            "amount": float(amount),      # standard currency units (naira, 2dp)
             "currency": "NGN",
             "description": "Wallet Funding",
 
@@ -208,9 +208,9 @@ def transaction_history(request):
 def _credit_wallet_once(reference, amount_naira):
     """
     Idempotent credit: only apply once, only if the amount matches.
-    TransactPay's Verify API returns amount in kobo, so it's converted
-    back to naira here using Decimal to avoid floating-point precision
-    issues.
+    TransactPay's Verify API returns amount in standard currency units
+    (naira, 2dp) - not kobo - so it's compared directly here using
+    Decimal to avoid floating-point precision issues.
     """
     with transaction.atomic():
         try:
@@ -227,7 +227,7 @@ def _credit_wallet_once(reference, amount_naira):
             txn.save(update_fields=["status"])
             return
 
-        verified_amount = Decimal(str(amount_naira)) / Decimal("100")
+        verified_amount = Decimal(str(amount_naira))
 
         if verified_amount != txn.amount:
             logger.warning(
