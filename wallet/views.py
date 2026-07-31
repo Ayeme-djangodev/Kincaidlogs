@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 import uuid
 from decimal import Decimal, InvalidOperation
 
@@ -19,6 +20,35 @@ from .transactpay import TransactPay, TransactPayError
 logger = logging.getLogger(__name__)
 
 MIN_FUNDING_AMOUNT = Decimal("100")
+
+# TransactPay's Standard Kit requires "mobile" and their sample payloads use
+# E.164-style numbers with country code, e.g. "+2348134543421". A blank or
+# locally-formatted number (e.g. "08012345678") is what triggers the
+# "mobile number required" block on the checkout modal.
+NG_MOBILE_RE = re.compile(r"^\+?\d{10,15}$")
+
+
+def normalize_mobile(raw):
+    """
+    Best-effort normalization to +234XXXXXXXXXX.
+    Returns None if we can't produce something TransactPay will accept.
+    """
+    if not raw:
+        return None
+
+    digits = re.sub(r"[^\d+]", "", raw)
+
+    if digits.startswith("+"):
+        cleaned = digits
+    elif digits.startswith("0") and len(digits) == 11:
+        # Local Nigerian format: 0801... -> +234801...
+        cleaned = "+234" + digits[1:]
+    elif digits.startswith("234"):
+        cleaned = "+" + digits
+    else:
+        cleaned = "+" + digits if len(digits) >= 10 else digits
+
+    return cleaned if NG_MOBILE_RE.match(cleaned) else None
 
 
 @login_required
@@ -54,7 +84,13 @@ def fund_wallet(request):
             status=400,
         )
 
-    mobile = getattr(request.user, "phone", "") or ""
+    # We don't collect a phone number from customers. TransactPay's Standard
+    # Kit requires a non-empty, validly-formatted "mobile" field to proceed
+    # past the modal's own client-side check, so we fall back to a business
+    # number we own rather than asking the customer for one.
+    mobile = normalize_mobile(getattr(request.user, "phone", "")) or getattr(
+        settings, "TRANSACTPAY_FALLBACK_MOBILE", "+2348024113305"
+    )
 
     reference = str(uuid.uuid4())
 
