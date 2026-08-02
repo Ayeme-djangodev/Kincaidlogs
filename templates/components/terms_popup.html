@@ -1,0 +1,108 @@
+{% if request.user.is_authenticated and request.session.needs_terms_acceptance %}
+
+<div class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-ink/70 backdrop-blur-sm">
+
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden">
+
+        <div class="px-6 pt-6 pb-4 border-b border-paper-dim">
+            <h2 class="text-xl font-display font-bold text-ink">
+                Terms &amp; Conditions
+            </h2>
+            <p class="text-sm text-slate mt-1">
+                Please review and accept our terms before continuing.
+            </p>
+        </div>
+
+        <div class="px-6 py-4 overflow-y-auto text-sm text-slate leading-6 space-y-4">
+
+            <p>
+                By using KincaidLogs, you agree to the following terms. This
+                summary is provided for convenience; the full policy governs
+                in the event of any conflict.
+            </p>
+
+            <div>
+                <p class="font-semibold text-ink mb-1">1. Verified Marketplace</p>
+                <p>
+                    All listings are reviewed before publishing. KincaidLogs
+                    acts as an intermediary between buyers and sellers and
+                    holds funds in escrow until delivery is confirmed.
+                </p>
+            </div>
+
+            <div>
+                <p class="font-semibold text-ink mb-1">2. Account Responsibility</p>
+                <p>
+                    You are responsible for maintaining the confidentiality of
+                    your login credentials and wallet funds. KincaidLogs is
+                    not liable for losses resulting from shared credentials.
+                </p>
+            </div>
+
+            <div>
+                <p class="font-semibold text-ink mb-1">3. Prohibited Use</p>
+                <p>
+                    Listings or purchases involving stolen, fraudulently
+                    obtained, or otherwise illegal digital assets are strictly
+                    prohibited and will result in account suspension.
+                </p>
+            </div>
+
+            <div>
+                <p class="font-semibold text-ink mb-1">4. Payments &amp; Refunds</p>
+                <p>
+                    Wallet funding is processed through our third-party
+                    payment provider. Refunds are handled per our dispute
+                    resolution process and are not guaranteed in all cases.
+                </p>
+            </div>
+
+            <div>
+                <p class="font-semibold text-ink mb-1">5. Changes to These Terms</p>
+                <p>
+                    We may update these terms from time to time. Continued
+                    use of the platform after changes constitutes acceptance
+                    of the revised terms.
+                </p>
+            </div>
+
+        </div>
+
+        <form action="{% url 'accept_terms' %}" method="post" class="px-6 py-4 border-t border-paper-dim bg-paper">
+            {% csrf_token %}
+
+            <label class="flex items-start gap-3 text-sm text-ink cursor-pointer select-none">
+                <input
+                    type="checkbox"
+                    name="agree"
+                    id="terms-agree-checkbox"
+                    class="mt-0.5 h-4 w-4 rounded border-paper-dim text-ledger focus:ring-ledger/30">
+                I have read and agree to the Terms &amp; Conditions
+            </label>
+
+            <button
+                type="submit"
+                id="terms-agree-submit"
+                disabled
+                class="w-full mt-4 h-12 rounded-xl bg-ledger text-white font-display font-medium disabled:opacity-40 disabled:cursor-not-allowed enabled:hover:bg-ledger-dark transition-colors">
+                Agree &amp; Continue
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    (function () {
+        var checkbox = document.getElementById("terms-agree-checkbox");
+        var submitBtn = document.getElementById("terms-agree-submit");
+
+        checkbox.addEventListener("change", function () {
+            submitBtn.disabled = !checkbox.checked;
+        });
+    })();
+</script>
+
+{% endif %}

@@ -24,6 +24,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
+            request.session["needs_terms_acceptance"] = True
             return redirect("dashboard")
 
         messages.error(request, "Invalid username or password.")
@@ -45,6 +46,8 @@ def register(request):
             user = form.save()
 
             login(request, user)
+
+            request.session["needs_terms_acceptance"] = True
 
             messages.success(request, "Welcome to KincaidLogs!")
 
@@ -102,3 +105,16 @@ def my_orders(request):
             "page_obj": page_obj,
         },
     )
+
+
+@login_required
+def accept_terms(request):
+    """
+    Clears the session flag that triggers the terms & conditions popup.
+    Only ever called via the popup's own form, after the user has
+    ticked the "I agree" checkbox.
+    """
+    if request.method == "POST" and request.POST.get("agree") == "on":
+        request.session["needs_terms_acceptance"] = False
+
+    return redirect("dashboard")

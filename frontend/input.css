@@ -1,17 +1,21 @@
 @import "tailwindcss";
+@source "../templates/**/*.html";
 
 @theme {
   --color-ink: #0F172A;
   --color-ink-light: #1E293B;
   --color-paper: #F7F7F3;
   --color-paper-dim: #EFEEE7;
-  --color-ledger: #2E5AAC;
-  --color-ledger-dark: #24478A;
+  --color-ledger: #000000;
+  --color-ledger-dark: #1F1F1F;
   --color-verified: #0F9D6F;
   --color-verified-dim: #E4F5EE;
   --color-amber: #C98A1B;
   --color-amber-dim: #FBF0DC;
   --color-slate: #475569;
+  --color-accent: #FF4A1C;
+  --color-accent-dark: #E23F14;
+  --color-accent-dim: #FFE8E0;
 
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
@@ -275,4 +279,3 @@ AUTH PAGE
     max-width: 450px;
   }
 }
-

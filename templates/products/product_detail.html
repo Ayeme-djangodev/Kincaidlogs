@@ -89,6 +89,14 @@
                     Add To Cart
                 </a>
 
+                {% if product.profile_url %}
+                    <a href="{{ product.profile_url }}"
+                       target="_blank" rel="noopener noreferrer"
+                       class="border border-ink/15 px-6 py-3 rounded-xl hover:bg-paper font-medium">
+                        Visit Profile
+                    </a>
+                {% endif %}
+
                 <a href="/"
                    class="border border-ink/15 px-8 py-3 rounded-xl hover:bg-paper font-medium">
                     Back
@@ -103,15 +111,23 @@
 </section>
 
 <!-- Sticky mobile buy bar -->
-<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-paper-dim px-4 py-3 flex items-center gap-3 z-40">
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-paper-dim px-4 py-3 flex items-center gap-2 z-40">
 
-    <div class="flex-1">
+    <div class="flex-1 min-w-0">
         <p class="text-xs text-slate font-mono">Price</p>
-        <p class="text-lg font-mono font-semibold text-ledger">₦{{ product.price }}</p>
+        <p class="text-lg font-mono font-semibold text-ledger truncate">₦{{ product.price }}</p>
     </div>
 
+    {% if product.profile_url %}
+        <a href="{{ product.profile_url }}"
+           target="_blank" rel="noopener noreferrer"
+           class="border border-ink/15 text-ink text-center px-4 py-3 rounded-xl font-medium text-sm">
+            Profile
+        </a>
+    {% endif %}
+
     <a href="{% url 'add_to_cart' product.id %}"
-       class="flex-1 bg-ledger hover:bg-ledger-dark text-white text-center px-4 py-3 rounded-xl font-medium">
+       class="flex-1 min-w-0 bg-ledger hover:bg-ledger-dark text-white text-center px-4 py-3 rounded-xl font-medium truncate">
         Add To Cart
     </a>
 

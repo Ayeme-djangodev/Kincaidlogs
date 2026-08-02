@@ -15,3 +15,19 @@ def home(request):
             "products": products
         },
     )
+
+
+def about_us(request):
+    return render(request, "core/about.html")
+
+
+def privacy_policy(request):
+    return render(request, "core/privacy.html")
+
+
+def about_us(request):
+    return render(request, "core/about.html")
+
+
+def privacy_policy(request):
+    return render(request, "core/privacy.html")

@@ -5,9 +5,11 @@ from .models import Category, Product
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "slug")
+    list_display = ("name", "parent", "slug")
+    list_filter = ("parent",)
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ("name",)
+    autocomplete_fields = ("parent",)
 
 
 @admin.register(Product)
@@ -33,7 +35,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Listing Info", {
-            "fields": ("title", "category", "platform", "description", "image")
+            "fields": ("title", "category", "platform", "description", "image", "profile_url")
         }),
         ("Account Details", {
             "fields": ("followers", "account_age", "country", "verified", "monetized")

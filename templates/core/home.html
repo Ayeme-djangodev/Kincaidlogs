@@ -1,9 +1,76 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Buy Verified Digital Accounts · KincaidLogs{% endblock %}
 
 {% block content %}
 
+<!-- Promo Banner Carousel -->
+<section class="max-w-7xl mx-auto px-6 pt-6 md:pt-8">
+
+    <div id="heroCarousel" class="relative w-full aspect-[1858/580] rounded-2xl overflow-hidden shadow-lg bg-ink">
+
+        <img src="{% static 'images/hero/hero-welcome.png' %}"
+             alt="Welcome to Kincaidlogs.com - your number one social media accounts and services vendor"
+             class="hero-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-700">
+
+        <img src="{% static 'images/hero/hero-telegram.png' %}"
+             alt="Join our Telegram channel for updates"
+             class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700">
+
+        <img src="{% static 'images/hero/hero-vpn-notice.png' %}"
+             alt="Announcement: always use a VPN when accessing purchased foreign accounts"
+             class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700">
+
+        <div class="absolute bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            <button type="button" class="hero-dot w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white transition-colors" data-index="0" aria-label="Show slide 1"></button>
+            <button type="button" class="hero-dot w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/50 transition-colors" data-index="1" aria-label="Show slide 2"></button>
+            <button type="button" class="hero-dot w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white/50 transition-colors" data-index="2" aria-label="Show slide 3"></button>
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+    (function () {
+        var carousel = document.getElementById("heroCarousel");
+        var slides = carousel.querySelectorAll(".hero-slide");
+        var dots = carousel.querySelectorAll(".hero-dot");
+        var current = 0;
+        var timer;
+
+        function showSlide(index) {
+            slides.forEach(function (slide, i) {
+                slide.style.opacity = i === index ? "1" : "0";
+            });
+            dots.forEach(function (dot, i) {
+                dot.classList.toggle("bg-white", i === index);
+                dot.classList.toggle("bg-white/50", i !== index);
+            });
+            current = index;
+        }
+
+        function nextSlide() {
+            showSlide((current + 1) % slides.length);
+        }
+
+        function restartAutoplay() {
+            clearInterval(timer);
+            timer = setInterval(nextSlide, 5000);
+        }
+
+        dots.forEach(function (dot) {
+            dot.addEventListener("click", function () {
+                showSlide(parseInt(dot.dataset.index, 10));
+                restartAutoplay();
+            });
+        });
+
+        showSlide(0);
+        restartAutoplay();
+    })();
+</script>
 
 <!-- Hero -->
 <section class="max-w-7xl mx-auto px-6 py-12 md:py-24">

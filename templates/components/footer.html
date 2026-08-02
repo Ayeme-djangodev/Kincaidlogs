@@ -1,20 +1,27 @@
-<footer class="bg-ink text-white mt-20">
+<footer class="bg-ink text-white mt-20 border-t-2 border-dashed border-white/15">
 
     <div class="max-w-7xl mx-auto px-6 py-16">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
 
             <!-- Brand -->
-            <div class="md:col-span-4">
+            <div class="md:col-span-5">
 
-                <a href="/" class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center">
-                        <span class="text-white text-xl font-display font-bold">K</span>
+                <div class="relative inline-block">
+
+                    <a href="/" class="inline-flex items-baseline">
+                        <span class="text-2xl font-display font-bold text-white">
+                            Kincaid<span class="text-verified">Logs</span>
+                        </span>
+                    </a>
+
+                    <div class="stamp hidden sm:flex absolute -top-3 -right-16"
+                         style="width:60px;height:60px;font-size:8px;border-color:var(--color-verified);color:var(--color-verified);">
+                        <span>VERIFIED</span>
+                        <span>✓ KL</span>
                     </div>
-                    <span class="text-2xl font-display font-bold text-white">
-                        KincaidLogs
-                    </span>
-                </a>
+
+                </div>
 
                 <p class="mt-5 text-slate-300 leading-relaxed max-w-sm">
                     Premium digital assets, social accounts,
@@ -25,14 +32,14 @@
                 <div class="flex items-center gap-3 mt-6">
 
                     <a href="#" aria-label="Twitter / X"
-                       class="w-10 h-10 rounded-lg bg-ink-light flex items-center justify-center text-slate-300 hover:bg-ledger hover:text-white transition-colors">
+                       class="w-10 h-10 rounded-lg bg-ink-light flex items-center justify-center text-slate-300 hover:bg-white hover:text-ink transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
                     </a>
 
                     <a href="#" aria-label="Instagram"
-                       class="w-10 h-10 rounded-lg bg-ink-light flex items-center justify-center text-slate-300 hover:bg-ledger hover:text-white transition-colors">
+                       class="w-10 h-10 rounded-lg bg-ink-light flex items-center justify-center text-slate-300 hover:bg-white hover:text-ink transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5"></rect>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -41,7 +48,7 @@
                     </a>
 
                     <a href="#" aria-label="Telegram"
-                       class="w-10 h-10 rounded-lg bg-ink-light flex items-center justify-center text-slate-300 hover:bg-ledger hover:text-white transition-colors">
+                       class="w-10 h-10 rounded-lg bg-ink-light flex items-center justify-center text-slate-300 hover:bg-white hover:text-ink transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M22 2 2 10.1l6.2 2.3L10 19l3.5-3.9L18.7 19 22 2ZM8.9 13l-2.4-.9L18 6l-9 8.4V13Zm1.2 1.9 1.7-1.6 2.9 3.9-1.6.6-3-2.9Z" fill-rule="evenodd" clip-rule="evenodd"></path>
                         </svg>
@@ -52,9 +59,9 @@
             </div>
 
             <!-- Quick Links -->
-            <div class="md:col-span-2 md:col-start-6">
+            <div class="md:col-span-3 md:border-l md:border-dashed md:border-white/15 md:pl-8">
 
-                <h4 class="font-display font-semibold text-white mb-5">
+                <h4 class="font-mono text-xs uppercase tracking-widest text-verified mb-5">
                     Quick Links
                 </h4>
 
@@ -64,50 +71,26 @@
                         Home
                     </a>
 
+                    <a href="{% url 'browse_products' %}" class="text-slate-300 hover:text-white transition-colors">
+                        Buy Accounts
+                    </a>
+
                     <a href="{% url 'my_orders' %}" class="text-slate-300 hover:text-white transition-colors">
                         My Orders
                     </a>
 
-                    <a href="#" class="text-slate-300 hover:text-white transition-colors">
-                        Buy Accounts
+                    <a href="{% url 'about_us' %}" class="text-slate-300 hover:text-white transition-colors">
+                        About Us
                     </a>
-
-                    <a href="#" class="text-slate-300 hover:text-white transition-colors">
-                        Pricing
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- Categories -->
-            <div class="md:col-span-2">
-
-                <h4 class="font-display font-semibold text-white mb-5">
-                    Categories
-                </h4>
-
-                <div class="flex flex-col gap-3">
-
-                    {% for category in navbar_categories %}
-                        <a href="{% url 'category_products' category.id %}"
-                           class="text-slate-300 hover:text-white transition-colors">
-                            {{ category.name }}
-                        </a>
-                    {% empty %}
-                        <span class="text-slate-400">
-                            No categories yet
-                        </span>
-                    {% endfor %}
 
                 </div>
 
             </div>
 
             <!-- Contact -->
-            <div class="md:col-span-3">
+            <div class="md:col-span-4 md:border-l md:border-dashed md:border-white/15 md:pl-8">
 
-                <h4 class="font-display font-semibold text-white mb-5">
+                <h4 class="font-mono text-xs uppercase tracking-widest text-verified mb-5">
                     Contact
                 </h4>
 
@@ -138,7 +121,7 @@
         </div>
 
         <!-- Bottom Bar -->
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-ink-light mt-14 pt-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-dashed border-white/15 mt-14 pt-8">
 
             <p class="text-slate-400 text-xs font-mono tracking-wide">
                 © {% now "Y" %} KINCAIDLOGS · ALL RIGHTS RESERVED
@@ -148,7 +131,7 @@
                 <a href="#" class="text-slate-400 hover:text-white transition-colors">
                     Terms of Service
                 </a>
-                <a href="#" class="text-slate-400 hover:text-white transition-colors">
+                <a href="{% url 'privacy_policy' %}" class="text-slate-400 hover:text-white transition-colors">
                     Privacy Policy
                 </a>
             </div>

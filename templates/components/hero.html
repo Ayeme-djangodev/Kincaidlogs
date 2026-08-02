@@ -1,37 +1,103 @@
-<section class="py-20 bg-gray-50">
+<section class="relative bg-ink overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 relative">
 
-    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
 
-        <div class="flex justify-between items-center mb-10">
+            <!-- Left: copy -->
+            <div class="relative z-10">
+                <span class="inline-block bg-accent-dim text-accent text-xs font-mono font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full mb-6">
+                    Verified Sellers Only
+                </span>
 
-            <h2 class="text-4xl font-bold">
+                <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-6">
+                    Buy social accounts &amp; digital goods, <span class="text-accent">safely</span>.
+                </h1>
 
-                Featured Accounts
+                <p class="text-slate-300 text-lg max-w-md mb-8">
+                    Fund your wallet, browse verified listings, and check out in minutes — every order backed by our buyer protection.
+                </p>
 
-            </h2>
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="#"
+                       class="bg-accent hover:bg-accent-dark text-white px-7 py-3.5 rounded-full font-display font-semibold transition-colors">
+                        Browse Items
+                    </a>
+                    <a href="#"
+                       class="border border-white/20 text-white px-7 py-3.5 rounded-full font-display font-semibold hover:bg-white/10 transition-colors">
+                        How It Works
+                    </a>
+                </div>
+            </div>
 
-            <a href="#"
-               class="text-blue-600">
+            <!-- Right: shield illustration -->
+            <div class="relative z-10 flex justify-center md:justify-end">
+                <svg viewBox="0 0 320 360" class="w-56 md:w-72 lg:w-80" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#1E293B"/>
+                            <stop offset="100%" stop-color="#0F172A"/>
+                        </linearGradient>
+                    </defs>
 
-                View All →
+                    <path d="M160 12 L292 56 V172 C292 258 236 320 160 348 C84 320 28 258 28 172 V56 Z"
+                          fill="url(#shieldFill)" stroke="#FF4A1C" stroke-width="4"/>
 
-            </a>
+                    <path d="M160 40 L266 76 V172 C266 244 220 296 160 320 C100 296 54 244 54 172 V76 Z"
+                          fill="none" stroke="#FF4A1C" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.5"/>
 
+                    <path d="M108 178 L145 216 L214 138"
+                          fill="none" stroke="#FF4A1C" stroke-width="10"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-            {% for product in products %}
-
-                {% include "components/product_card.html" %}
-
-            {% empty %}
-
-                <p>No products yet.</p>
-
-            {% endfor %}
-
+        <!-- Floating announcement card (left, overlapping) -->
+        <div class="relative md:absolute md:left-6 md:-bottom-2 z-20 mt-10 md:mt-0 max-w-xs">
+            <div class="bg-white rounded-2xl shadow-2xl p-5">
+                <span class="inline-block bg-verified-dim text-verified text-[11px] font-mono font-semibold tracking-widest uppercase px-2.5 py-1 rounded-full mb-3">
+                    New
+                </span>
+                <p class="text-ink font-display font-semibold text-base leading-snug mb-1">
+                    Instant delivery on 500+ listings
+                </p>
+                <p class="text-slate text-sm">
+                    No waiting on manual handoff — get your item the moment payment clears.
+                </p>
+            </div>
         </div>
+
+    </div>
+
+    <!-- Floating action buttons (bottom-left, stacked) -->
+    <div class="fixed bottom-6 left-6 z-40 flex flex-col gap-3">
+
+        <a href="tel:+2340000000000"
+           aria-label="Call us"
+           class="flex items-center gap-2 bg-ink hover:bg-ledger-dark text-white pl-3 pr-4 py-3 rounded-full shadow-lg transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span class="text-sm font-medium hidden sm:inline">Call Us</span>
+        </a>
+
+        <a href="https://t.me/kincaidsocials" target="_blank" rel="noopener"
+           aria-label="Message us on Telegram"
+           class="flex items-center gap-2 bg-[#229ED9] hover:brightness-95 text-white pl-3 pr-4 py-3 rounded-full shadow-lg transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.9 3.6 2.7 11.1c-1 .4-1 1 .1 1.3l4.9 1.6 1.9 5.8c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.7.4 1.2.2 1.4-.7l3.4-15.7c.3-1.2-.3-1.7-1.3-1.4Z"/>
+            </svg>
+            <span class="text-sm font-medium hidden sm:inline">Telegram</span>
+        </a>
+
+        <a href="https://wa.me/2340000000000" target="_blank" rel="noopener"
+           aria-label="Message us on WhatsApp"
+           class="flex items-center gap-2 bg-[#25D366] hover:brightness-95 text-white pl-3 pr-4 py-3 rounded-full shadow-lg transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.1-3.5-8.3ZM12 21.3h-.1a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.2C2 6.4 6.5 2 12 2a9.9 9.9 0 0 1 7 2.9 9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9Zm5.4-7.4c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5c.1-.1.2-.3.2-.4a.6.6 0 0 0 0-.5c-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5c0 1.5 1.1 2.9 1.2 3.1.1.2 2.2 3.4 5.3 4.7.7.3 1.3.5 1.8.7.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3Z"/>
+            </svg>
+            <span class="text-sm font-medium hidden sm:inline">WhatsApp</span>
+        </a>
 
     </div>
 

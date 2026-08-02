@@ -6,8 +6,24 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
 
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="subcategories",
+        help_text="Leave blank for a top-level category (e.g. Facebook). "
+                   "Set this to make it a subcategory (e.g. Facebook (200-400 followers)).",
+    )
+
     def __str__(self):
+        if self.parent_id:
+            return f"{self.parent.name} → {self.name}"
         return self.name
+
+    @property
+    def is_subcategory(self):
+        return self.parent_id is not None
 
 class Product(models.Model):
 
@@ -62,6 +78,14 @@ class Product(models.Model):
         upload_to="products/",
         blank=True,
         null=True,
+    )
+
+    profile_url = models.URLField(
+        "Profile link",
+        blank=True,
+        null=True,
+        help_text="Link to the account/profile for buyers to preview (e.g. Instagram profile URL). "
+                   "Leave blank to hide the 'Visit Profile' button on the listing.",
     )
 
     status = models.CharField(
